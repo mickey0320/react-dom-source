@@ -9,10 +9,11 @@ function Router({ children, history }) {
     location,
   };
   useEffect(() => {
-    history.listen((location) => {
+    history.listen(({location}) => {
       setLocation(location);
     });
   }, []);
+  console.log('router')
   return (
     <ReactRouterContext.Provider value={contextValue}>
       {children}

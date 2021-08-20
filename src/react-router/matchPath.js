@@ -1,8 +1,7 @@
 import { pathToRegexp } from "path-to-regexp";
 
-function matchPath(pathname, path, exact) {
+function matchPath(pathname, path = '', exact = false) {
   const { reg, keys } = compilePath(path, exact);
-  console.log(reg, keys)
   const result = reg.exec(pathname);
   if (!result) return null;
   const matched = {

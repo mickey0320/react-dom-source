@@ -1,9 +1,18 @@
 import { useContext } from "react";
-import ReactRouterContext from "../react-router/reactRouterContext";
+import { __ReactRouterContext as ReactRouterContext } from "../react-router";
 
-function Link({ children, to }) {
+function Link({ children, to, ...rest }) {
   const { history } = useContext(ReactRouterContext);
-  return <span onClick={() => history.push(to)}>{children}</span>;
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push(to);
+  };
+
+  return (
+    <a onClick={handleClick} {...rest}>
+      {children}
+    </a>
+  );
 }
 
 export default Link;

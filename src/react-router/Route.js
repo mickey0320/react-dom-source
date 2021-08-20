@@ -2,16 +2,18 @@ import { useContext } from "react";
 import ReactRouterContext from "./reactRouterContext";
 import matchPath from "./matchPath";
 
-function Route({ path, component, exact = false }) {
+function Route({ path, component, exact, computedMatch }) {
   const { location } = useContext(ReactRouterContext);
-  const matched = matchPath(location.pathname, path, exact);
-  if (!matched) return null;
+  const match = computedMatch
+    ? computedMatch
+    : matchPath(location.pathname, path, exact);
+  if (!match) return null;
   const RouteComponent = component;
   const routeProps = {
     location,
-    matched,
+    match,
   };
-  if (matched) {
+  if (match) {
     return <RouteComponent {...routeProps} />;
   }
   return null;
